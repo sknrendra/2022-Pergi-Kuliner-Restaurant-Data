@@ -1,0 +1,23 @@
+Pergi Kuliner Website Info
+125 Pages of 12 restaurants, totalling 1500 restaurants.
+
+Columns of Restaurant Info
+0. restaurant_id
+1. restaurant_name
+2. description
+3. culinary_type y
+4. location
+5. price_range
+6. opening_schedule y
+8. available_facilities y
+9. non_available_facilities y
+10. cabang/isbranch y
+11. phone_number 
+12. payment y
+13. combined_rating y
+14. taste_rating
+15. ambience_rating
+16. taste_to_price_rating
+17. service_rating
+18. cleanliness_rating
+19. link
