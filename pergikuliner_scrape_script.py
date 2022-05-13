@@ -23,10 +23,10 @@ def retrieve_pergikuliner(url):
     restaurant[5] = re.search('(?<=content=).+?"', str(soup.find(itemprop='paymentAccepted'))).group()
     #precise
     promo = soup.find(attrs={'class': 'promotional-text'})
-    restaurant[6] = promo.get_text if promo is not None else None
+    restaurant[6] = str(promo.get_text) if promo is not None else None
     restaurant[7] = soup.find(string=re.compile('Rp. .* '))
     schedule = soup.find(attrs={'itemprop': 'openingHours'})
-    restaurant[8] = schedule.get_text if schedule is not None else None
+    restaurant[8] = str(schedule.get_text) if schedule is not None else None
     restaurant[9] = ','.join([result.get_text() for result in soup(class_='checked')])
     restaurant[10] = ','.join([result.get_text() for result in soup(class_='unchecked')])
     restaurant[11] = soup.find(href=re.compile("tel.*")).get_text()
@@ -48,3 +48,4 @@ for pageindex in range(1, 126):
             restaurants_compiled.append(retrieve_pergikuliner(f'https://pergikuliner.com{urlext}'))
 
 restaurants_dataset = pd.concat(restaurants_compiled, axis=1).T
+restaurants_dataset.to_csv('pergikuliner_restaurants_dataset.csv', index=False)
