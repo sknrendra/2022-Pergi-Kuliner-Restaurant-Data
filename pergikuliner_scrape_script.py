@@ -25,7 +25,8 @@ def retrieve_pergikuliner(url):
     promo = soup.find(attrs={'class': 'promotional-text'})
     restaurant[6] = promo.get_text if promo is not None else None
     restaurant[7] = soup.find(string=re.compile('Rp. .* '))
-    restaurant[8] = soup.find(attrs={'itemprop': 'openingHours'}).get_text()
+    schedule = soup.find(attrs={'itemprop': 'openingHours'})
+    restaurant[8] = schedule.get_text if schedule is not None else None
     restaurant[9] = ','.join([result.get_text() for result in soup(class_='checked')])
     restaurant[10] = ','.join([result.get_text() for result in soup(class_='unchecked')])
     restaurant[11] = soup.find(href=re.compile("tel.*")).get_text()
