@@ -31,7 +31,7 @@ def retrieve_pergikuliner(url):
     restaurant[10] = ','.join([result.get_text() for result in soup(class_='unchecked')])
     restaurant[11] = soup.find(href=re.compile("tel.*")).get_text()
     restaurant[12] = soup.find(itemprop='ratingValue').get_text()
-    restaurant[13] = ','.join([i.getText().strip() for i in soup.find_all(class_='rate-box-bottom best-rating')])
+    restaurant[13] = ','.join([i.getText().strip() for i in soup.find_all(class_='rate-box-bottom')])
     return restaurant
 
 restaurants_compiled = []
