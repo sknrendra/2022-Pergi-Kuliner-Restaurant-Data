@@ -15,9 +15,9 @@ def retrieve_pergikuliner(url):
     restaurant = pd.Series([])
     #imprecise
     restaurant[0] = soup.h1.get_text()
+    restaurant[3] = soup.link.get('href')
     restaurant[1] = soup.find(attrs={'class':'info-list'}).li.get_text()
     restaurant[2] = soup(attrs={'class': 'left'})[1].get_text()
-    restaurant[3] = soup.link.get('href')
     restaurant[4] = soup.find(class_='info-list').find_all('li')[-1].get_text()
     #check multi-valued attributes
     restaurant[5] = re.search('(?<=content=).+?"', str(soup.find(itemprop='paymentAccepted'))).group()
