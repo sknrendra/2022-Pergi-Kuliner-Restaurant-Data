@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import re
 from concurrent.futures import ThreadPoolExecutor
@@ -16,7 +17,7 @@ def driver_setup():
 
     return driver
 
-def fetcher(url, driver):
+def restdata_fetcher(url, driver):
     driver.get(url)
     soup = BeautifulSoup(driver.page_source)
 
@@ -35,6 +36,18 @@ def fetcher(url, driver):
 
     return pd.Series(resultbucket)
 
+def review_fetcher(url, driver):
+    #check if all the reviews are opened
+    driver.get(url)
+    show_next_review = driver.find_element(By.ID, "next_review")
+    while show_next_review:
+        show_next_review.click()
+    #then loop through all of them
+
+"""
+
+"""
+
 def crawler(lst, driver):
     resultcontainer=[]
     for pageindex in lst:
@@ -50,7 +63,7 @@ def crawler(lst, driver):
             else:
                 urlext = urltest.group()
                 print(f'\rretrieving: {urlext}', end='')
-                resultcontainer.append(fetcher(f'https://pergikuliner.com{urlext}', driver))
+                resultcontainer.append(restdata_fetcher(f'https://pergikuliner.com{urlext}', driver))
     return resultcontainer
 
 #build as many drivers as there are threads, so each thread gets own driver
